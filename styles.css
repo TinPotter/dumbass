@@ -7,20 +7,61 @@ body, html {
     justify-content: center;
     align-items: center;
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #f06, #3f6);
+    background: linear-gradient(135deg, #ff6f61, #ffcc5c, #88d8b0);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
     color: white;
     overflow: hidden;
+    perspective: 1000px;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .center-container {
     font-size: 4em;
     text-align: center;
-    animation: fadeIn 2s ease-in-out, pulse 1.5s infinite;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 2s ease-in-out, pulse 1.5s infinite, rotate 5s linear infinite;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.5),
+                 0 0 30px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 255, 255, 0.5);
     background: rgba(0, 0, 0, 0.5);
     padding: 20px 40px;
     border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.center-container::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    border: 2px solid #fff;
+    border-radius: 20px;
+    animation: glow 2s alternate infinite;
+}
+
+@keyframes glow {
+    from {
+        filter: blur(5px);
+        opacity: 0.7;
+    }
+    to {
+        filter: blur(20px);
+        opacity: 0.3;
+    }
 }
 
 @keyframes fadeIn {
@@ -41,4 +82,138 @@ body, html {
     50% {
         transform: scale(1.1);
     }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotateX(0deg) rotateY(0deg);
+    }
+    to {
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+
+/* Additional decorative elements */
+.center-container::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    top: 0;
+    left: 0;
+    border-radius: 15px;
+    filter: blur(10px);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(0.9);
+        opacity: 0.5;
+    }
+}
+
+/* Particles effect */
+.particles {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    animation: particlesMove 5s linear infinite;
+}
+
+@keyframes particlesMove {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-200px) translateX(300px);
+        opacity: 0;
+    }
+}
+
+@for $i from 1 through 20 {
+    .particles:nth-child(#{$i}) {
+        $size: random(5) + 5 + px;
+        width: $size;
+        height: $size;
+        animation-duration: random(5) + 5 + s;
+        animation-delay: random(5) + s;
+        left: random(100) + vw;
+        top: random(100) + vh;
+    }
+}
+
+/* Adding particles to the body */
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+body::after .particles {
+    position: absolute;
+}
+
+/* Adding more decorative elements */
+.decor {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    animation: decorMove 8s linear infinite;
+}
+
+@keyframes decorMove {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+    }
+    100% {
+        transform: translateY(100px) translateX(100px) rotate(360deg);
+    }
+}
+
+@for $i from 1 through 5 {
+    .decor:nth-child(#{$i}) {
+        $size: random(50) + 100 + px;
+        width: $size;
+        height: $size;
+        animation-duration: random(5) + 5 + s;
+        animation-delay: random(5) + s;
+        top: random(100) + vh;
+        left: random(100) + vw;
+    }
+}
+
+/* Adding decorative elements to the body */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+body::before .decor {
+    position: absolute;
 }
