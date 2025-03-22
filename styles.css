@@ -123,7 +123,15 @@ body, html {
 }
 
 /* Particles effect */
-.particles {
+.particles-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.particle {
     position: absolute;
     width: 10px;
     height: 10px;
@@ -143,8 +151,9 @@ body, html {
     }
 }
 
+/* Generating particles */
 @for $i from 1 through 20 {
-    .particles:nth-child(#{$i}) {
+    .particle:nth-child(#{$i}) {
         $size: random(5) + 5 + px;
         width: $size;
         height: $size;
@@ -155,23 +164,15 @@ body, html {
     }
 }
 
-/* Adding particles to the body */
-body::after {
-    content: '';
+/* Decorative elements */
+.decor-container {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     pointer-events: none;
     overflow: hidden;
 }
 
-body::after .particles {
-    position: absolute;
-}
-
-/* Adding more decorative elements */
 .decor {
     position: absolute;
     width: 200px;
@@ -190,6 +191,7 @@ body::after .particles {
     }
 }
 
+/* Generating decorative elements */
 @for $i from 1 through 5 {
     .decor:nth-child(#{$i}) {
         $size: random(50) + 100 + px;
@@ -200,20 +202,4 @@ body::after .particles {
         top: random(100) + vh;
         left: random(100) + vw;
     }
-}
-
-/* Adding decorative elements to the body */
-body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    overflow: hidden;
-}
-
-body::before .decor {
-    position: absolute;
 }
